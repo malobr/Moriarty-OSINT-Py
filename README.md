@@ -14,7 +14,7 @@
 
 ## Estrutura do Projeto
 
-\`\`\`text
+```text
 moriarty/
 ├── data/
 │   └── sites.json          # Banco de dados de alvos e regras de validação
@@ -24,7 +24,7 @@ moriarty/
 │   └── motor.py            # Core assíncrono e lógica de requisições
 ├── requirements.txt        # Dependências do projeto
 └── README.md               # Documentação
-\`\`\`
+```
 
 ---
 
@@ -34,22 +34,22 @@ moriarty/
 
 1. Clone ou baixe este repositório.
 2. Navegue até a pasta raiz do projeto:
-   \`\`\`bash
+  ```bash
    cd moriarty
-   \`\`\`
+   ```
 3. Crie e ative um ambiente virtual:
-   \`\`\`bash
+   ```bash
    python -m venv venv
    
    # No Windows:
    venv\Scripts\activate
    # No Linux/MacOS:
    source venv/bin/activate
-   \`\`\`
+   ```
 4. Instale as dependências:
-   \`\`\`bash
+   ```bash
    pip install -r requirements.txt
-   \`\`\`
+   ```
 
 ---
 
@@ -57,14 +57,14 @@ moriarty/
 
 O Moriarty opera via linha de comando (CLI). Para iniciar uma busca por um nome de usuário, rode o script `main.py` com o comando `search`:
 
-\`\`\`bash
+```bash
 python src/main.py search "nome_do_usuario"
-\`\`\`
+```
 
 Para ver o menu de ajuda e todos os comandos disponíveis:
-\`\`\`bash
+```bash
 python src/main.py --help
-\`\`\`
+```
 
 ---
 
@@ -74,22 +74,22 @@ Para ensinar o Moriarty a buscar em um novo site, basta editar o arquivo `data/s
 
 **1. Validação Simples (Por Status Code 404):**
 Usado quando o site respeita os padrões HTTP e retorna um erro 404 genuíno se o perfil não existir.
-\`\`\`json
+```json
 "GitHub": {
   "url": "https://github.com/{}",
   "error_type": "status_code"
 }
-\`\`\`
+```
 
 **2. Validação Avançada (Por String no HTML):**
 Usado para evitar **Falsos Positivos** quando o site retorna Status 200 OK, mas exibe uma página de erro personalizada.
-\`\`\`json
+```json
 "Instagram": {
   "url": "https://www.instagram.com/{}/",
   "error_type": "string",
   "error_string": "Esta página não está disponível"
 }
-\`\`\`
+```
 *(Nota: Certifique-se de que `{}` esteja presente na URL para que o Moriarty possa injetar o nome de usuário procurado).*
 
 ---
