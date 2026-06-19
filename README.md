@@ -1,5 +1,9 @@
-# Moriarty
-
+                                      ███╗   ███╗ ██████╗ ██████╗ ██╗ █████╗ ██████╗ ████████╗██╗   ██╗
+                                      ████╗ ████║██╔═══██╗██╔══██╗██║██╔══██╗██╔══██╗╚══██╔══╝╚██╗ ██╔╝
+                                      ██╔████╔██║██║   ██║██████╔╝██║███████║██████╔╝   ██║    ╚████╔╝
+                                      ██║╚██╔╝██║██║   ██║██╔══██╗██║██╔══██║██╔══██╗   ██║     ╚██╔╝
+                                      ██║ ╚═╝ ██║╚██████╔╝██║  ██║██║██║  ██║██║  ██║   ██║      ██║
+                                      ╚═╝     ╚═╝ ╚═════╝ ╚═╝  ╚═╝╚═╝╚═╝  ╚═╝╚═╝  ╚═╝   ╚═╝      ╚═╝
 Moriarty é um framework de OSINT (Open Source Intelligence) rápido e assíncrono, desenvolvido em Python. Seu foco principal é o reconhecimento automatizado e a enumeração de usuários em dezenas de plataformas simultaneamente, utilizando concorrência para alta performance.
 
 > ⚠️ **Status do Projeto:** Atualmente, o módulo de **Username (`-u`)** está 100% operacional. Os módulos de busca por **E-mail (`-e`)** e **Telefone (`-p`)** encontram-se em desenvolvimento ativo e serão disponibilizados nas próximas atualizações.
