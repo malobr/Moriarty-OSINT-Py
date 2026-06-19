@@ -1,7 +1,7 @@
 import argparse
 import asyncio
 from rich.console import Console
-from motor import rodar_motor  # Importa a lógica que construímos no motor.py
+from src.motor import rodar_motor  # Importa a lógica que construímos no motor.py
 
 console = Console()
 
