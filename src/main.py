@@ -1,59 +1,55 @@
+import sys
 import argparse
-import asyncio
 from rich.console import Console
-from src.motor import rodar_motor  # Importa a lógica que construímos no motor.py
+from rich.table import Table
 
 console = Console()
 
-def mostrar_banner():
-    banner = """
-    [bold red]
+# Sua arte ASCII guardada em uma variável (note a tag de cor do rich no começo e fim)
+BANNER = """[bold red]
     ███╗   ███╗ ██████╗ ██████╗ ██╗ █████╗ ██████╗ ████████╗██╗   ██╗
     ████╗ ████║██╔═══██╗██╔══██╗██║██╔══██╗██╔══██╗╚══██╔══╝╚██╗ ██╔╝
-    ██╔████╔██║██║   ██║██████╔╝██║███████║██████╔╝   ██║    ╚████╔╝ 
-    ██║╚██╔╝██║██║   ██║██╔══██╗██║██╔══██║██╔══██╗   ██║     ╚██╔╝  
-    ██║ ╚═╝ ██║╚██████╔╝██║  ██║██║██║  ██║██║  ██║   ██║      ██║   
-    ╚═╝     ╚═╝ ╚═════╝ ╚═╝  ╚═╝╚═╝╚═╝  ╚═╝╚═╝  ╚═╝   ╚═╝      ╚═╝   
-    [/bold red]
-    [bold white]OSINT Framework - v1.0[/bold white]
-    """
-    console.print(banner)
+    ██╔████╔██║██║   ██║██████╔╝██║███████║██████╔╝   ██║    ╚████╔╝
+    ██║╚██╔╝██║██║   ██║██╔══██╗██║██╔══██║██╔══██╗   ██║     ╚██╔╝
+    ██║ ╚═╝ ██║╚██████╔╝██║  ██║██║██║  ██║██║  ██║   ██║      ██║
+    ╚═╝     ╚═╝ ╚═════╝ ╚═╝  ╚═╝╚═╝╚═╝  ╚═╝╚═╝  ╚═╝   ╚═╝      ╚═╝
+[/bold red]"""
+
+def mostrar_ajuda_customizada():
+    console.print(BANNER)
+    console.print("    [bold cyan]OSINT Framework - v1.0[/bold cyan]\n")
+    
+    # Cria uma tabela elegante com o Rich
+    tabela = Table(show_header=True, header_style="bold magenta", border_style="dim")
+    tabela.add_column("Argumento", style="cyan", width=25)
+    tabela.add_column("Descrição", style="white")
+    
+    # Adiciona as linhas da tabela
+    tabela.add_row("-h, --help", "Mostra este menu de ajuda customizado")
+    tabela.add_row("-u, --username", "Busca por nome de usuário (ex: -u alvo123)")
+    tabela.add_row("-e, --email", "Busca informações de um endereço de e-mail")
+    tabela.add_row("-p, --phone", "Busca informações atreladas a um número de telefone")
+    
+    console.print(tabela)
+    console.print("\n[dim]Exemplo de uso: moriarty -u marcelo -e alvo@email.com[/dim]\n")
 
 def main():
-    # Configura o menu de ajuda (--help)
-    parser = argparse.ArgumentParser(
-        description="Moriarty - Framework de OSINT para busca de informações em fontes abertas.",
-        epilog="Exemplo de uso: moriarty -u marcelo -e alvo@email.com"
-    )
+    # 1. INTERCEPTA O HELP ANTES DO ARGPARSE
+    if "-h" in sys.argv or "--help" in sys.argv or len(sys.argv) == 1:
+        mostrar_ajuda_customizada()
+        sys.exit(0)
 
-    # Definindo as opções da linha de comando
-    parser.add_argument("-u", "--username", help="Busca por nome de usuário (ex: -u alvo123)", type=str)
-    parser.add_argument("-e", "--email", help="Busca informações relacionadas a um endereço de e-mail", type=str)
-    parser.add_argument("-p", "--phone", help="Busca informações atreladas a um número de telefone", type=str)
-
-    # Lê o que o usuário digitou no terminal
+    # 2. CONFIGURA O ARGPARSE DESLIGANDO O HELP PADRÃO (add_help=False)
+    parser = argparse.ArgumentParser(add_help=False)
+    parser.add_argument("-u", "--username")
+    parser.add_argument("-e", "--email")
+    parser.add_argument("-p", "--phone")
+    
     args = parser.parse_args()
 
-    # Mostra a arte ASCII
-    mostrar_banner()
-
-    # Roteador: Decide o que fazer baseado no argumento passado
-    if getattr(args, 'username'):
-        console.print(f"[bold cyan][*] Iniciando módulo de Username para:[/bold cyan] {args.username}")
-        # Chama o motor.py passando o alvo
-        asyncio.run(rodar_motor(args.username))
-        
-    elif getattr(args, 'email'):
-        # Aqui você futuramente conectará um 'motor_email.py'
-        console.print(f"[bold yellow][*] Módulo de E-mail em desenvolvimento. Alvo selecionado:[/bold yellow] {args.email}")
-        
-    elif getattr(args, 'phone'):
-        # Aqui você futuramente conectará um 'motor_telefone.py'
-        console.print(f"[bold yellow][*] Módulo de Telefone em desenvolvimento. Alvo selecionado:[/bold yellow] {args.phone}")
-        
-    else:
-        # Se o usuário digitar só "moriarty" sem argumentos
-        console.print("[bold red][!] Nenhum alvo fornecido. Use 'moriarty --help' para ver as opções disponíveis.[/bold red]")
+    # ... AQUI CONTINUA A SUA LÓGICA DE CHAMAR O motor.py PASSANDO OS ARGS ...
+    # if args.username:
+    #     asyncio.run(rodar_motor(args.username))
 
 if __name__ == "__main__":
     main()
