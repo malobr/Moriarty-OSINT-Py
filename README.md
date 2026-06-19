@@ -35,11 +35,16 @@ Para baixar e instalar o pacote Moriarty diretamente, execute o comando abaixo n
 
 > **Nota para usuários Linux:** É recomendado utilizar um ambiente virtual (`venv`) ou o `pipx` para evitar conflitos com pacotes do sistema.
 
-```bash
-pip install git+[https://github.com/malobr/Moriarty-OSINT-Py.git](https://github.com/malobr/Moriarty-OSINT-Py.git)
+**Pré-requisitos:** Python 3.8+ e Git (apenas se for instalar via protocolo Git).
 
+**Opção 1 (Recomendada - Requer Git):**
 ```
-
+pip install git+https://github.com/SeuUsuario/Moriarty-OSINT-Py.git
+```
+**Opção 2 (Não requer Git):**
+```
+pip install https://github.com/SeuUsuario/Moriarty-OSINT-Py/archive/refs/heads/main.zip
+```
 
 
 ## Como Usar
