@@ -1,3 +1,4 @@
+import os
 import json
 import asyncio
 import httpx
@@ -8,11 +9,19 @@ console = Console()
 
 def carregar_sites():
     try:
-        with open("data/sites.json", "r", encoding="utf-8") as f:
+        # Descobre a pasta exata onde o motor.py foi instalado pelo pip
+        diretorio_atual = os.path.dirname(os.path.abspath(__file__))
+        # Junta isso com 'data' e 'sites.json'
+        caminho_json = os.path.join(diretorio_atual, 'data', 'sites.json')
+        
+        # Agora o open usa o caminho absoluto perfeito
+        with open(caminho_json, "r", encoding="utf-8") as f:
             return json.load(f)
     except FileNotFoundError:
         console.print("[bold red][!] Erro: Arquivo data/sites.json não encontrado.[/bold red]")
         return None
+
+# ... (o resto do seu código continua exatamente igual a partir daqui)
 
 # Adicionamos o 'semaforo' como parâmetro para limitar requisições simultâneas
 async def checar_site(client, dados_site, username, semaforo):
